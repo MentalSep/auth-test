@@ -4,10 +4,22 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-$storage = '/tmp/storage';
+$runtime = '/tmp/laravel';
+$storage = "$runtime/storage";
 
-foreach (['framework/cache/data', 'framework/sessions', 'framework/views', 'logs'] as $directory) {
-    is_dir("$storage/$directory") || mkdir("$storage/$directory", 0777, true);
+foreach (['bootstrap/cache', 'storage/framework/cache/data', 'storage/framework/sessions', 'storage/framework/views', 'storage/logs'] as $directory) {
+    is_dir("$runtime/$directory") || mkdir("$runtime/$directory", 0777, true);
+}
+
+foreach ([
+    'APP_CONFIG_CACHE' => "$runtime/bootstrap/cache/config.php",
+    'APP_EVENTS_CACHE' => "$runtime/bootstrap/cache/events.php",
+    'APP_PACKAGES_CACHE' => "$runtime/bootstrap/cache/packages.php",
+    'APP_ROUTES_CACHE' => "$runtime/bootstrap/cache/routes.php",
+    'APP_SERVICES_CACHE' => "$runtime/bootstrap/cache/services.php",
+] as $name => $path) {
+    putenv("$name=$path");
+    $_ENV[$name] = $_SERVER[$name] = $path;
 }
 
 require __DIR__.'/../vendor/autoload.php';
