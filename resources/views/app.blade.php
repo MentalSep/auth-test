@@ -36,7 +36,7 @@
     <header>
         <a class="brand" href="/">Acme Workspace</a>
 
-        @if ($section === 'home')
+        @if (empty($user))
             <a class="button" href="/dashboard">Sign in</a>
         @else
             <nav>
@@ -70,7 +70,12 @@
                 <p class="muted">Internal project workspace</p>
                 <h1>Plan projects, review reports, and keep work moving.</h1>
                 <p class="muted">The landing page is public. Workspace content requires authentication through the company SSO service.</p>
-                <a class="button" href="/dashboard">Open workspace</a>
+                @if (empty($user))
+                    <a class="button" href="/dashboard">Sign in to open workspace</a>
+                @else
+                    <p><strong>Signed in as {{ $user['name'] ?? $user['email'] }}.</strong></p>
+                    <a class="button" href="/dashboard">Continue to dashboard</a>
+                @endif
             </section>
             <section class="grid">
                 <article class="card"><h2>Projects</h2><p>Track current initiatives and owners.</p></article>

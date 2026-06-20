@@ -26,6 +26,8 @@ class ExampleTest extends TestCase
 
         $this->withSession($session)->get('/dashboard')
             ->assertOk()->assertSeeText(['Welcome back, Test User', 'Active projects']);
+        $this->withSession($session)->get('/')
+            ->assertOk()->assertSeeText(['Signed in as Test User', 'Continue to dashboard']);
         $this->withSession($session)->get('/projects')
             ->assertOk()->assertSeeText('Client Portal');
         $this->withSession($session)->get('/reports')
