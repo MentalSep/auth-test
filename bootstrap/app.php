@@ -13,5 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->report(function (\Throwable $e): void {
+            error_log('APP_EXCEPTION: '.$e::class.': '.$e->getMessage());
+        });
     })->create();

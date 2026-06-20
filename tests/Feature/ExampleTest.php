@@ -49,4 +49,13 @@ class ExampleTest extends TestCase
             ->assertOk()
             ->assertSeeText('SSO validation failed (HTTP 401): Invalid client credentials.');
     }
+
+    public function test_callback_shows_connection_errors_without_a_500(): void
+    {
+        Http::fake(fn () => throw new \RuntimeException('Auth service unavailable.'));
+
+        $this->followRedirects($this->get('/auth/callback?token=test-token'))
+            ->assertOk()
+            ->assertSeeText('Auth service unavailable.');
+    }
 }

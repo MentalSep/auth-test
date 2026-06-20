@@ -5,7 +5,7 @@ namespace Company\AuthClient\Http\Controllers;
 use Company\AuthClient\SSOClient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use RuntimeException;
+use Throwable;
 
 class SsoCallbackController
 {
@@ -15,7 +15,7 @@ class SsoCallbackController
 
         try {
             $profile = $client->validate($token);
-        } catch (RuntimeException $e) {
+        } catch (Throwable $e) {
             report($e);
 
             return redirect('/')->with('sso_error', $e->getMessage());
