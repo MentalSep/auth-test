@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 define('LARAVEL_START', microtime(true));
 
 register_shutdown_function(function (): void {
-    if ($error = error_get_last()) {
+    if (($error = error_get_last()) && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR], true)) {
         error_log('BOOTSTRAP_FATAL: '.json_encode($error));
     }
 });
@@ -36,7 +36,8 @@ $app->useStoragePath($storage);
 try {
     $app->handleRequest(Request::capture());
 } catch (Throwable $e) {
-    error_log('BOOTSTRAP_EXCEPTION: '.$e);
+    $message = sprintf('%s: %s at %s:%d', $e::class, $e->getMessage(), $e->getFile(), $e->getLine());
+    error_log('BOOTSTRAP_EXCEPTION: '.$message);
     http_response_code(500);
-    echo 'Application bootstrap failed. Check BOOTSTRAP_EXCEPTION in the function logs.';
+    echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 }
