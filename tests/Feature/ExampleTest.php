@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
@@ -31,5 +32,21 @@ class ExampleTest extends TestCase
             ->assertOk()->assertSeeText('Weekly delivery');
         $this->withSession($session)->get('/profile')
             ->assertOk()->assertSeeText(['Test User', 'admin', 'users:view', 'Central auth account']);
+    }
+
+    public function test_callback_shows_sso_validation_errors_without_a_500(): void
+    {
+        Http::fake([
+            'https://auth.example.com/api/sso/validate' => Http::response([
+                'message' => 'Invalid client credentials.',
+            ], 401),
+        ]);
+
+        $this->get('/auth/callback?token=test-token')
+            ->assertRedirect('/');
+
+        $this->followRedirects($this->get('/auth/callback?token=test-token'))
+            ->assertOk()
+            ->assertSeeText('SSO validation failed (HTTP 401): Invalid client credentials.');
     }
 }

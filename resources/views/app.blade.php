@@ -59,6 +59,12 @@
     </header>
 
     <main>
+        @if (session('sso_error'))
+            <section class="card" style="border-color:#dc2626; margin-bottom:1rem;">
+                <strong>Sign-in failed:</strong> {{ session('sso_error') }}
+            </section>
+        @endif
+
         @if ($section === 'home')
             <section class="hero">
                 <p class="muted">Internal project workspace</p>

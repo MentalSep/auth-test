@@ -3,20 +3,28 @@
 namespace Company\AuthClient;
 
 use Illuminate\Support\Facades\Http;
+use RuntimeException;
 
 class SSOClient
 {
     public function validate(string $token): array
     {
-        return Http::asJson()
+        $response = Http::asJson()
             ->timeout(config('sso.request_timeout_seconds', 5))
             ->post(rtrim(config('sso.auth_url'), '/').'/api/sso/validate', [
                 'application_id' => config('sso.application_id'),
                 'client_secret' => config('sso.client_secret'),
                 'token' => $token,
-            ])
-            ->throw()
-            ->json();
+            ]);
+
+        if ($response->failed()) {
+            throw new RuntimeException(
+                'SSO validation failed (HTTP '.$response->status().'): '.
+                $response->json('message', 'Unknown error')
+            );
+        }
+
+        return $response->json();
     }
 
     public function sessionIsValid(string $grant): bool

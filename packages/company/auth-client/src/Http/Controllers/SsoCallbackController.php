@@ -5,13 +5,21 @@ namespace Company\AuthClient\Http\Controllers;
 use Company\AuthClient\SSOClient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use RuntimeException;
 
 class SsoCallbackController
 {
     public function __invoke(Request $request, SSOClient $client): RedirectResponse
     {
         $token = $request->validate(['token' => ['required', 'string']])['token'];
-        $profile = $client->validate($token);
+
+        try {
+            $profile = $client->validate($token);
+        } catch (RuntimeException $e) {
+            report($e);
+
+            return redirect('/')->with('sso_error', $e->getMessage());
+        }
 
         $request->session()->put([
             'sso.user' => $profile['user'],
