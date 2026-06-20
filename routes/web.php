@@ -12,4 +12,4 @@ Route::middleware('auth.central')->get('/{section}', function (string $section) 
         'roles' => SSOAuth::roles(),
         'permissions' => SSOAuth::permissions(),
     ]);
-})->whereIn('section', ['dashboard', 'user', 'roles', 'permissions'])->name('account');
+})->whereIn('section', ['dashboard', 'projects', 'reports', 'profile'])->name('app.page');
