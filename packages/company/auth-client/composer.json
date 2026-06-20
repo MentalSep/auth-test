@@ -1,5 +1,6 @@
 {
     "name": "company/auth-client",
+    "version": "1.0.1",
     "description": "Client integration for Company centralized authentication.",
     "type": "library",
     "license": "proprietary",
