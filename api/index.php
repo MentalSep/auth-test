@@ -39,5 +39,5 @@ try {
     $message = sprintf('%s: %s at %s:%d', $e::class, $e->getMessage(), $e->getFile(), $e->getLine());
     error_log('BOOTSTRAP_EXCEPTION: '.$message);
     http_response_code(500);
-    echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+    echo 'Application bootstrap failed.';
 }
