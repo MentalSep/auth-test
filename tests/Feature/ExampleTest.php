@@ -10,8 +10,9 @@ class ExampleTest extends TestCase
     {
         $this->get('/')->assertOk()->assertSee('This page is public');
 
-        $this->get('/dashboard')
-            ->assertRedirect('https://auth.example.com/sso/authorize?redirect_to=http%3A%2F%2Flocalhost%2Fauth%2Fcallback');
+        $this->withHeader('X-Forwarded-Proto', 'https')
+            ->get('/dashboard')
+            ->assertRedirect('https://auth.example.com/sso/authorize?redirect_to=https%3A%2F%2Flocalhost%2Fauth%2Fcallback');
 
         $this->withSession([
             'sso.user' => ['name' => 'Test User'],
