@@ -30,7 +30,6 @@ SESSION_ENCRYPT=true
 SESSION_SECURE_COOKIE=true
 SESSION_SAME_SITE=lax
 SSO_AUTH_URL=https://your-auth-domain
-SSO_APPLICATION_ID=your-application-id
 SSO_CLIENT_SECRET=your-client-secret
 SSO_CALLBACK_PATH=/auth/callback
 SSO_LOGOUT_PATH=/auth/logout-central

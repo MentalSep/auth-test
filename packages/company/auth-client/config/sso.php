@@ -2,7 +2,6 @@
 
 return [
     'auth_url' => env('SSO_AUTH_URL', 'https://auth.company.internal'),
-    'application_id' => env('SSO_APPLICATION_ID'),
     'client_secret' => env('SSO_CLIENT_SECRET'),
     'callback_path' => env('SSO_CALLBACK_PATH', '/auth/callback'),
     'logout_path' => env('SSO_LOGOUT_PATH', '/auth/logout-central'),

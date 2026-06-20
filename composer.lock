@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1926217e3716fe24ee0e4e0e6c06e802",
+    "content-hash": "a9c5511260a0eba4f0b2bcb805e4d3af",
     "packages": [
         {
             "name": "brick/math",
@@ -136,11 +136,11 @@
         },
         {
             "name": "company/auth-client",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "dist": {
                 "type": "path",
                 "url": "packages/company/auth-client",
-                "reference": "3fb6d6d8528b46afa6e6137af7698832fbcf9589"
+                "reference": "7d43f590cc10c54b68b95d11aa55a34149cb86c9"
             },
             "require": {
                 "illuminate/contracts": "^13.0",
