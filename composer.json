@@ -6,7 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "company/auth-client": "1.0.2",
+        "company/auth-client": "1.0.3",
         "laravel/framework": "^13.0"
     },
     "require-dev": {

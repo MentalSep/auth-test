@@ -39,7 +39,7 @@ class ExampleTest extends TestCase
     public function test_callback_shows_sso_validation_errors_without_a_500(): void
     {
         Http::fake([
-            'https://auth.example.com/api/sso/validate' => Http::response([
+            'https://auth.example.com/sso/validate' => Http::response([
                 'message' => 'Invalid client credentials.',
             ], 401),
         ]);

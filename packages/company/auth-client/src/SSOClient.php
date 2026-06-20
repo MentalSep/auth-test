@@ -11,7 +11,7 @@ class SSOClient
     {
         $response = Http::asJson()
             ->timeout(config('sso.request_timeout_seconds', 5))
-            ->post(rtrim(config('sso.auth_url'), '/').'/api/sso/validate', [
+            ->post(rtrim(config('sso.auth_url'), '/').'/sso/validate', [
                 'client_secret' => config('sso.client_secret'),
                 'token' => $token,
             ]);
@@ -30,7 +30,7 @@ class SSOClient
     {
         $response = Http::asJson()
             ->timeout(config('sso.request_timeout_seconds', 5))
-            ->post(rtrim(config('sso.auth_url'), '/').'/api/sso/session', [
+            ->post(rtrim(config('sso.auth_url'), '/').'/sso/session', [
                 'client_secret' => config('sso.client_secret'),
                 'session_grant' => $grant,
             ]);
