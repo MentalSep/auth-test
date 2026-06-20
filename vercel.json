@@ -5,6 +5,14 @@
       "runtime": "vercel-php@0.8.0"
     }
   },
+  "env": {
+    "APP_CONFIG_CACHE": "/tmp/laravel/bootstrap/cache/config.php",
+    "APP_EVENTS_CACHE": "/tmp/laravel/bootstrap/cache/events.php",
+    "APP_PACKAGES_CACHE": "/tmp/laravel/bootstrap/cache/packages.php",
+    "APP_ROUTES_CACHE": "/tmp/laravel/bootstrap/cache/routes.php",
+    "APP_SERVICES_CACHE": "/tmp/laravel/bootstrap/cache/services.php",
+    "VIEW_COMPILED_PATH": "/tmp/laravel/storage/framework/views"
+  },
   "routes": [
     {
       "src": "/(favicon\\.ico|robots\\.txt)",

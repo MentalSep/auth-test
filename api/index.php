@@ -4,6 +4,12 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+register_shutdown_function(function (): void {
+    if ($error = error_get_last()) {
+        error_log('BOOTSTRAP_FATAL: '.json_encode($error));
+    }
+});
+
 $runtime = '/tmp/laravel';
 $storage = "$runtime/storage";
 
@@ -26,4 +32,11 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = require_once __DIR__.'/../bootstrap/app.php';
 $app->useStoragePath($storage);
-$app->handleRequest(Request::capture());
+
+try {
+    $app->handleRequest(Request::capture());
+} catch (Throwable $e) {
+    error_log('BOOTSTRAP_EXCEPTION: '.$e);
+    http_response_code(500);
+    echo 'Application bootstrap failed. Check BOOTSTRAP_EXCEPTION in the function logs.';
+}

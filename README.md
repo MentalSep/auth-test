@@ -22,7 +22,7 @@ APP_NAME=SSO Test Client
 APP_ENV=production
 APP_KEY=base64:generated-value
 APP_DEBUG=false
-APP_URL=https://auth-test.vercel.app
+APP_URL=https://auth-test-olive.vercel.app
 LOG_CHANNEL=stderr
 CACHE_STORE=array
 SESSION_DRIVER=cookie
@@ -43,7 +43,7 @@ Generate `APP_KEY` locally with `php artisan key:generate --show`.
 Whitelist this callback URL in the auth project:
 
 ```text
-https://auth-test.vercel.app/auth/callback
+https://auth-test-olive.vercel.app/auth/callback
 ```
 
 If the Vercel project uses another production or custom domain, set `APP_URL`
